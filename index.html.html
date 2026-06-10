@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA en el Salón de Clases | Observatorio Universitario</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,500;0,700;0,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Nuevos colores claros y limpios */
+            --bg-color: #ffffff;
+            --text-main: #1a202c; /* Gris muy oscuro, mejor para leer que el negro puro */
+            --text-muted: #4a5568; /* Gris medio para textos secundarios */
+            --accent: #08519c; /* Tu color de highlight */
+            --card-bg: #f8fafc; /* Un gris/azul casi blanco para diferenciar las tarjetas */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Tipografía y Encabezados */
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            /* Gradiente muy sutil azul claro a blanco */
+            background: radial-gradient(circle at center, #ebf4ff 0%, var(--bg-color) 70%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            max-width: 900px;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            color: #000000;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        /* Botones y CTAs */
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            color: white;
+            background-color: var(--accent);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            /* Sombra azul al pasar el cursor */
+            box-shadow: 0 10px 20px rgba(8, 81, 156, 0.3);
+            background-color: #063c75; /* Un tono ligeramente más oscuro al presionar */
+        }
+
+        /* Sección de Preguntas Provocadoras */
+        .questions-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: left;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            /* Borde muy sutil para delimitar en fondo blanco */
+            border: 1px solid #e2e8f0;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            /* Sombra elegante que acompaña al fondo claro */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            border-color: rgba(8, 81, 156, 0.3);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* Sección de Solución */
+        .solution {
+            /* Fondo ligeramente gris claro para separar secciones */
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .solution-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .solution h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .solution p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+        }
+
+        /* Modal interactivo (Pop-up) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Fondo blanco translúcido */
+            background: rgba(255, 255, 255, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--bg-color);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            border: 1px solid var(--accent);
+            /* Sombra prominente para el pop-up */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popUp {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            margin-top: 2rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .close-btn:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <h1>¿Estás usando la IA correctamente en el salón de clases?</h1>
+        <p>La adopción de herramientas como ChatGPT, Gemini y Claude se ha acelerado, pero gran parte de la discusión se concentra solo en la productividad y eficiencia.</p>
+        <button class="btn" onclick="openModal()"><i class="fa-solid fa-eye"></i> Descubre tu perfil de usuario</button>
+    </header>
+
+    <section class="questions-section">
+        <h2 class="section-title">Lo que estamos ignorando</h2>
+        <div class="grid">
+            <div class="card">
+                <i class="fa-solid fa-scale-unbalanced"></i>
+                <h3>¿Productividad o Dependencia?</h3>
+                <p>Las IA generativas apoyan los procesos de aprendizaje e investigación diaria. Pero, ¿estamos delegando el pensamiento crítico a un algoritmo que solo predice texto?</p>
+            </div>
+            
+            <div class="card">
+                <i class="fa-solid fa-brain"></i>
+                <h3>Los Algoritmos también Alucinan</h3>
+                <p>Los sistemas de IA reflejan los datos con los que fueron entrenados. ¿Sabes cómo identificar sesgos de información y evitar que se reproduzcan desigualdades en tus trabajos?</p>
+            </div>
+
+            <div class="card">
+                <i class="fa-solid fa-earth-americas"></i>
+                <h3>Tecnología desde el Sur Global</h3>
+                <p>Adoptamos acríticamente tecnologías desarrolladas en otros contextos. Necesitamos una visión <strong>Slow AI</strong>: sostenible, participativa y adaptada a la realidad mexicana.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution">
+        <div class="solution-content">
+            <h2>Observatorio Universitario de IA y Cultura Digital</h2>
+            <p>Un espacio diseñado para estudiantes y docentes universitarios. Nuestro objetivo no es prohibir la IA, sino construir una plataforma de alfabetización crítica para comprender, debatir y utilizar estas tecnologías de manera ética e informada.</p>
+            <p><em>Explora mapas de alucinaciones, foros de debate y guías prácticas contra la dependencia tecnológica.</em></p>
+            <button class="btn" style="margin-top: 1rem;" onclick="window.open('https://forms.gle/D2N11AVbwhNE8aD4A', '_blank')"><i class="fa-solid fa-flask"></i> Ayúdanos a construirlo (Encuesta)</button>
+        </div>
+    </section>
+
+    <div class="modal" id="interactiveModal">
+        <div class="modal-content">
+            <i class="fa-solid fa-triangle-exclamation" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
+            <h3 style="color: var(--text-main);">¡Espera un momento!</h3>
+            <p style="margin-top: 1rem; color: var(--text-muted);">Esta plataforma aún está en construcción mediante metodologías de Diseño Centrado en las Personas. Necesitamos tu voz para hacerla realidad.</p>
+            <button class="btn close-btn" onclick="closeModal()">Entendido</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('interactiveModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('interactiveModal').style.display = 'none';
+        }
+
+        // Cerrar modal al hacer clic fuera de la caja
+        window.onclick = function(event) {
+            let modal = document.getElementById('interactiveModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
